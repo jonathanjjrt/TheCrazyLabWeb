@@ -1,0 +1,79 @@
+——————————————————————————————————————————————————————————————
+Travelista - A Blogging Theme for Travel Bloggers - Changelog
+--------------------------------------------------------------
+
+1.0.12
+----------------------------
+- Added: Width and height properties to logo
+- Added: Bug fix with comment form after updating to WordPress 4.4
+
+1.0.11
+----------------------------
+- Added: Vimeo icon in header
+- Minor bug fix with blog page
+
+1.0.10
+----------------------------
+- Fixed: Minor bug with WordPress Menus page
+- Fixed: Cover image was not appearing on author pages
+
+1.0.9
+----------------------------
+- Compatible with WordPress 4.3
+- Added: Option to change text transform property of widgets titles and main navigation
+- Added: Separate font properties for top navigation
+- Added: Facebook open graph tags for better sharing on Facebook
+- Fixed: Cover image option for pages now working 
+
+1.0.8
+----------------------------
+- Fixed: Issue with custom image sizes option not working
+
+1.0.7
+----------------------------
+- Added option to change dimensions of images
+
+1.0.6
+----------------------------
+- Changed $content_width to 1108 that is equal to full width layout
+- Security improvements
+- Fixed: Ad widgets were not displaying ads by ad codes
+
+1.0.5
+----------------------------
+- Added: Option to change font properties of sidebar widgets
+- Improved: Breadcrumbs
+- Minor CSS bug fixes
+- Added: Font icon option for widget titles
+
+1.0.4
+----------------------------
+- Fixed: Ad code was not working in ad widgets
+- Added: Option to change color of tagline below logo
+- Moved: Logo color change option from typography field to styling options
+- Minor CSS changes
+
+1.0.3
+----------------------------
+- Added more header styles
+- Added advertisement space for header (Theme Options -> Ad Management -> Header Ad).
+- Added styling for JetPack subscribe widget
+- Header and footer social links now open in new window
+- Option to change page title color
+- Slider now works on static homepage also
+- Minor CSS Changes
+- Added missing strings to translation file
+
+1.0.2
+----------------------------
+- Changed flex slider with owl carousel
+- Undefined index error in popular posts widget
+- CSS code improvements
+
+1.0.1
+----------------------------
+- Changed hover effect of footer social and post share buttons
+
+1.0
+----------------------------
+Initial Release

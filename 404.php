@@ -1,44 +1,49 @@
 <?php
 /**
- * The template for displaying all pages.
+ * The template for displaying 404 pages (Not Found)
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
- * @package flatsome
+ * @package WordPress
+ * @subpackage travelista
+ * @since Travelista 1.0
  */
 
 get_header(); ?>
+<div class="main-wrapper">
+	<div id="page">
+		<div class="main-content <?php bpxl_layout_class(); ?>">
+            <?php
+                // Include secondary sidebar
+                if($bpxl_travelista_options['bpxl_layout'] == 'scblayout') {
+                    get_template_part('sidebar-secondary');
+                }
+            ?>
+			<div class="content-area">
+				<div class="content content-page">
+					<div class="content-detail">
+						<div class="page-content">
+							<div class="post-box error-page-content">
+								<div class="error-head"><span><?php _e('Oops, This Page Could Not Be Found!','bloompixel'); ?></span></div>
+								<div class="error-text"><?php _e('404','bloompixel'); ?></div>
+								<p><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php _e('Back to Homepage','bloompixel'); ?></a></p>
+								<p>
+									<?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'bloompixel' ); ?>
+								</p>
+								<?php get_search_form(); ?>
+							</div>
+						</div><!--.page-content-->
+					</div>
+				</div>
+			</div>
+            <?php
+                $bpxl_layout_array = array(
+                    'clayout',
+                    'glayout',
+                    'flayout'
+                );
 
-<div  class="page-wrapper">
-<div class="row">
-
-	
-<div id="content" class="large-12 left columns" role="main">
-		<article id="post-0" class="post error404 not-found">
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'flatsome' ); ?></h1>
-				</header><!-- .entry-header -->
-				<div class="entry-content">
-
-
-		<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'flatsome' ); ?></p>
-
-					<?php get_search_form(); ?>
-
-								</div><!-- .entry-content -->
-			</article><!-- #post-0 .post .error404 .not-found -->
-
-
-</div><!-- end #content large-9 left -->
-
-</div><!-- end row -->
-</div><!-- end page-right-sidebar container -->
-
-
-<?php get_footer(); ?>
-
-
-	
+                if(!in_array($bpxl_travelista_options['bpxl_layout'],$bpxl_layout_array)) {
+                    get_sidebar();
+                }
+            ?>
+		</div><!--.main-content-->
+<?php get_footer();?>

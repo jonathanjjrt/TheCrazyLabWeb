@@ -1,81 +1,99 @@
 <?php
 /**
- * The template for displaying the footer.
+ * The template for displaying the footer
  *
- * @package flatsome
+ * Contains footer content and the closing of the .main-wrapper and #page div elements.
+ *
+ * @package WordPress
+ * @subpackage travelista
+ * @since Travelista 1.0
  */
 
-global $flatsome_opt;
-?>
-
-
-</div><!-- #main-content -->
-
-<footer class="footer-wrapper" role="contentinfo">	
-<?php if(isset($flatsome_opt['html_before_footer'])){
-	// BEFORE FOOTER HTML BLOCK
-	echo do_shortcode($flatsome_opt['html_before_footer']);
-} ?>
-
-<!-- FOOTER 1 -->
-<?php if ( is_active_sidebar( 'sidebar-footer-1' ) ) : ?>
-<div class="footer footer-1 <?php echo $flatsome_opt['footer_1_color']; ?>"  style="background-color:<?php echo $flatsome_opt['footer_1_bg_color']; ?>">
-	<div class="row">
-   		<?php dynamic_sidebar('sidebar-footer-1'); ?>        
-	</div><!-- end row -->
-</div><!-- end footer 1 -->
-<?php endif; ?>
-
-
-<!-- FOOTER 2 -->
-<?php if ( is_active_sidebar( 'sidebar-footer-2' ) ) : ?>
-<div class="footer footer-2 <?php echo $flatsome_opt['footer_2_color']; ?>" style="background-color:<?php echo $flatsome_opt['footer_2_bg_color']; ?>">
-	<div class="row">
-
-   		<?php dynamic_sidebar('sidebar-footer-2'); ?>        
-	</div><!-- end row -->
-</div><!-- end footer 2 -->
-<?php endif; ?>
-
-<?php if(isset($flatsome_opt['html_after_footer'])){
-	// AFTER FOOTER HTML BLOCK
-	echo do_shortcode($flatsome_opt['html_after_footer']);
-} ?>
-
-<div class="absolute-footer <?php echo $flatsome_opt['footer_bottom_style']; ?>" style="background-color:<?php echo $flatsome_opt['footer_bottom_color']; ?>">
-<div class="row">
-	<div class="large-12 columns">
-		<div class="left">
-			 <?php if ( has_nav_menu( 'footer' ) ) : ?>
-				<?php  
-						wp_nav_menu(array(
-							'theme_location' => 'footer',
-							'menu_class' => 'footer-nav',
-							'depth' => 1,
-							'fallback_cb' => false,
-						));
-				?>						
-			<?php endif; ?>
-		<div class="copyright-footer"><?php if(isset($flatsome_opt['footer_left_text'])) {echo do_shortcode($flatsome_opt['footer_left_text']);} else{ echo 'Define left footer text / navigation in Theme Option Panel';} ?></div>
-		</div><!-- .left -->
-		<div class="right">
-				<?php if(isset($flatsome_opt['footer_right_text'])){ echo do_shortcode($flatsome_opt['footer_right_text']);} else {echo 'Define right footer text in Theme Option Panel';} ?>
+global $bpxl_travelista_options; ?>
+		</div><!--#page-->
+	</div><!--.main-wrapper-->
+	<?php if ($bpxl_travelista_options['bpxl_footer_social_links'] == '1') { bpxl_social_links( 'footer' ); } ?>
+	<footer class="footer">
+		<div class="container">
+            <?php if ($bpxl_travelista_options['bpxl_show_footer_widgets'] == '1') { ?>
+                <?php if ($bpxl_travelista_options['bpxl_footer_columns'] == 'footer_4') { ?>
+                    <div class="footer-widgets clearfix footer-columns-4">
+                        <div class="footer-widget footer-widget-1">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 1') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-2">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 2') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-3">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 3') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-4 last">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 4') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                    </div><!-- .footer-widgets -->
+                <?php } elseif ($bpxl_travelista_options['bpxl_footer_columns'] == 'footer_3') { ?>
+                    <div class="footer-widgets clearfix footer-columns-3">
+                        <div class="footer-widget footer-widget-1">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 1') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-2">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 2') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-3 last">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 3') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                    </div><!-- .footer-widgets -->
+                <?php } elseif ($bpxl_travelista_options['bpxl_footer_columns'] == 'footer_2') { ?>
+                    <div class="footer-widgets clearfix footer-columns-2">
+                        <div class="footer-widget footer-widget-1">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 1') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="footer-widget footer-widget-2 last">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer 2') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                    </div><!-- .footer-widgets -->
+                <?php } else { ?>
+                    <div class="footer-widgets clearfix footer-columns-1">
+                        <div class="footer-widget footer-widget-1">
+                            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Footer') ) : ?>
+                            <?php endif; ?>
+                        </div>
+                    </div><!-- .footer-widgets -->
+                <?php } ?>
+			<?php } ?>
+		</div><!-- .container -->
+	</footer>
+	<?php if($bpxl_travelista_options['bpxl_footer_logo_btn'] == '1') { ?>
+		<div class="footer-logo-wrap">
+			<?php if (!empty($bpxl_travelista_options['bpxl_footer_logo']['url'])) { ?>
+				<div class="logo" class="uppercase">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+						<img src="<?php echo esc_url( $bpxl_travelista_options['bpxl_footer_logo']['url'] ); ?>" alt="<?php bloginfo( 'name' ); ?>">
+					</a>
+				</div>
+			<?php } ?>
 		</div>
-	</div><!-- .large-12 -->
-</div><!-- .row-->
-</div><!-- .absolute-footer -->
-</footer><!-- .footer-wrapper -->
-</div><!-- #wrapper -->
-
-<!-- back to top -->
-<a href="#top" id="top-link" class="animated fadeInUp"><span class="icon-angle-up"></span></a>
-
-<?php if(isset($flatsome_opt['html_scripts_footer'])){
-	// Insert footer scripts
-	echo $flatsome_opt['html_scripts_footer'];
-} ?>
-
+	<?php } ?>
+	<div class="copyright">
+		<div class="copyright-inner textcenter">
+			<?php if($bpxl_travelista_options['bpxl_footer_text'] != '') { ?><div class="copyright-text"><?php echo $bpxl_travelista_options['bpxl_footer_text']; ?></div><?php } ?>
+		</div>
+	</div><!-- .copyright -->
+	</div><!-- .st-pusher -->
+</div><!-- .main-container -->
+<?php if ($bpxl_travelista_options['bpxl_scroll_btn'] == '1') { ?>
+	<div class="back-to-top"><i class="fa fa-arrow-up"></i></div>
+<?php } ?>
+</div>
 <?php wp_footer(); ?>
-
 </body>
 </html>

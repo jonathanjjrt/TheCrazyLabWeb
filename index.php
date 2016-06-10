@@ -1,91 +1,101 @@
 <?php
 /**
- * The main template file.
+ * The main template file
  *
- * @package flatsome
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
+ *
+ * @link http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package WordPress
+ * @subpackage travelista
+ * @since Travelista 1.0
  */
 
-get_header();
+global $bpxl_travelista_options;
 
-if(!isset($flatsome_opt['blog_layout'])){$flatsome_opt['blog_layout'] = '';}
-?>
+get_header(); ?>
 
-<?php // ADD BLOG HEADER IF SET
-if($flatsome_opt['blog_header']){ echo do_shortcode($flatsome_opt['blog_header']);}
-?>
-<div class="page-wrapper <?php echo $flatsome_opt['blog_style']; ?>  page-<?php if($flatsome_opt['blog_layout']){ echo $flatsome_opt['blog_layout'];} else {echo 'right-sidebar';} ?>">
-	<div class="row">
-
-		<?php if($flatsome_opt['blog_layout'] == 'left-sidebar') {
-		 	echo '<div id="content" class="large-9 right columns" role="main">';
-		 } else if($flatsome_opt['blog_layout'] == 'right-sidebar'){
-		 	echo '<div id="content" class="large-9 left columns" role="main">';
-	 	 } else if($flatsome_opt['blog_layout'] == 'no-sidebar' && $flatsome_opt['blog_style'] == 'blog-pinterest'){
-		   echo '<div id="content" class="large-12 columns blog-pinterest-container" role="main">';
-		 } else if($flatsome_opt['blog_layout'] == 'no-sidebar'){
-		 	echo '<div id="content" class="large-12 columns" role="main">';
-		 } else {
-		 	echo '<div id="content" class="large-9 left columns" role="main">';
-		 }
+<div class="main-wrapper clearfix">
+	<div id="page">
+        <?php
+            // Include Slider
+            if($bpxl_travelista_options['bpxl_slider'] == '1') {
+                if(!is_paged()) {
+                    get_template_part('inc/slider');
+                }
+            }
+        ?>
+		<div class="main-content <?php bpxl_layout_class(); ?>">
+		<?php
+			// Include secondary sidebar
+			if($bpxl_travelista_options['bpxl_layout'] == 'scblayout') {
+				get_template_part('sidebar-secondary');
+			}
 		?>
+		<div class="content-area home-content-area">
+			<div class="content-home">
+				<div id="content" class="content <?php bpxl_masonry_class(); ?>">
 
-		<div class="page-inner">
+					<?php
+						if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
+						elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
+						else { $paged = 1; }
+						
+						if($bpxl_travelista_options['bpxl_home_latest_posts'] == '1') {
+							$recent_cats = $bpxl_travelista_options['bpxl_home_latest_cat'];
+							$recent_cat = implode(",", $recent_cats);
+							$args = array(
+								'cat'   => $recent_cat,
+								'paged' => $paged
+							);
+						} else {					
+							$args = array(
+                                'post_type' => 'post',
+								'paged'     => $paged
+							);
+						}
 
-		<?php if ( have_posts() ) : ?>
+						// The Query
+						query_posts( $args );
+					
+						if (have_posts()) : while (have_posts()) : the_post();
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+						/*
+						 * Include the post format-specific template for the content. If you want to
+						 * use this in a child theme, then include a file called called content-___.php
+						 * (where ___ is the post format) and that will be used instead.
+						 */
+						
+						get_template_part( 'template-parts/post-formats/content', get_post_format() );
+						
+						endwhile;
+								
+						else:
+							// If no content, include the "No posts found" template.
+							get_template_part( 'template-parts/post-formats/content', 'none' );
 
-				<?php
-					/* Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'content', get_post_format() );
+						endif;
+					?>
+				</div><!--content-->
+				<?php 
+					// Previous/next page navigation.
+					bpxl_paging_nav();
 				?>
+			</div><!--content-page-->
+		</div><!--content-area-->
+		<?php
+			$bpxl_layout_array = array(
+				'clayout',
+				'glayout',
+				'flayout'
+			);
 
-			<?php endwhile; ?>
-
-		<?php else : ?>
-
-			<?php get_template_part( 'no-results', 'index' ); ?>
-
-		<?php endif; ?>
-
-		<div class="large-12 columns navigation-container">
-			<?php flatsome_content_nav( 'nav-below' ); ?>
-		</div>
-	</div><!-- .page-inner -->
-
-
-	</div><!-- #content -->
-
-
-	<div class="large-3 columns left">
-		<?php if($flatsome_opt['blog_layout'] == 'left-sidebar' || $flatsome_opt['blog_layout'] == 'right-sidebar'){
-			get_sidebar();
-		}?>
-	</div><!-- end sidebar -->
-
-</div><!-- end row -->
-</div><!-- end page-wrapper -->
-
-<?php if($flatsome_opt['blog_style'] == 'blog-pinterest'){ ?>
-
-  <script>
-	jQuery(document).ready(function ($) {
-	    imagesLoaded( document.querySelector('.page-inner'), function( instance, container ) {
-	    	var $container = $(".page-inner");
-		    // initialize
-		    $container.packery({
-		      itemSelector: ".columns",
-		      gutter: 0,
-		    });
-  			$container.packery('layout');
-		});
-	 });
-  </script>
-<?php } ?>
-
-
+			if(!in_array($bpxl_travelista_options['bpxl_layout'],$bpxl_layout_array)) {
+				get_sidebar();
+			}
+		?>
+</div><!--.main-->
 <?php get_footer(); ?>

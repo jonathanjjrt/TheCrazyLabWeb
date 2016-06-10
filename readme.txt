@@ -1,0 +1,1 @@
+This theme is provided by BloomPixel - http://themeforest.net/user/BloomPixel

@@ -1,0 +1,8 @@
+.hide {
+	display:none
+}
+.field-menu-icon i,
+.select2-chosen i,
+.select2-result i {
+	margin: 0 5px 0 0
+}

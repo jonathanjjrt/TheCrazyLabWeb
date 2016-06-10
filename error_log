@@ -1,0 +1,1 @@
+[06-Jun-2016 06:37:04 America/Denver] PHP Fatal error:  Call to undefined function get_header() in /home/morelosm/public_html/thecrazylab/wp-content/themes/travelista/404.php on line 10
